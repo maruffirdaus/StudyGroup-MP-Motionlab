@@ -132,6 +132,8 @@
 
 4. SSH berhasil di-setup dan dapat digunakan
 
-    - Gunakan perintah berikut untuk mengubah remote URL ke SSH pada repository.
+    - Untuk melakukan clone menggunakan SSH, caranya sama seperti pada HTTPS, hanya saja URL yang digunakan adalah URL SSH.
+
+    - Apabila sebelumnya telah meng-clone repository menggunakan HTTPS, dapat gunakan perintah berikut untuk mengubah remote URL ke SSH.
 
         > git remote set-url origin \<URL SSH\>
