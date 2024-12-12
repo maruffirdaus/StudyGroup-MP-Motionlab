@@ -133,7 +133,7 @@
   )
   ```
 
-  Pengintegrasian warna dengan theme dimaksudkan agar penggunaan warna menjadi lebih praktis (akan langsung diterapkan pada setiap komponen UI tanpa harus menyesuaikannya lagi berdasarkan peran dari masing-masing komponen warna). Untuk dokumentasi peran dari tiap-tiap komponen warna dapat dilihat di https://m3.material.io/styles/color/roles/.
+  Pengintegrasian warna dengan theme dimaksudkan agar penggunaan warna menjadi lebih praktis (akan langsung diterapkan pada setiap komponen UI berdasarkan peran dari masing-masing komponen warna tanpa harus menyesuaikannya lagi). Untuk dokumentasi peran dari tiap-tiap komponen warna dapat dilihat di https://m3.material.io/styles/color/roles/.
 
 ## Bottom Navigation Bar
 
