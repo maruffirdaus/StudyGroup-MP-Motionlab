@@ -1,27 +1,25 @@
 package dev.maruffirdaus.w3_androidstudygroup.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
+import androidx.compose.ui.text.font.FontWeight
 import dev.maruffirdaus.w3_androidstudygroup.R
 
-val provider = GoogleFont.Provider(
-    providerAuthority = "com.google.android.gms.fonts",
-    providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
-)
-
-val sofia = GoogleFont("Sofia")
-
 val sofiaFamily = FontFamily(
-    Font(googleFont = sofia, fontProvider = provider)
+    Font(R.font.sofia_regular, FontWeight.Normal)
 )
-
-val onest = GoogleFont("Onest")
 
 val onestFamily = FontFamily(
-    Font(googleFont = onest, fontProvider = provider)
+    Font(R.font.onest_black, FontWeight.Black),
+    Font(R.font.onest_bold, FontWeight.Bold),
+    Font(R.font.onest_extrabold, FontWeight.ExtraBold),
+    Font(R.font.onest_extralight, FontWeight.ExtraLight),
+    Font(R.font.onest_light, FontWeight.Light),
+    Font(R.font.onest_medium, FontWeight.Medium),
+    Font(R.font.onest_regular, FontWeight.Normal),
+    Font(R.font.onest_semibold, FontWeight.SemiBold),
+    Font(R.font.onest_thin, FontWeight.Thin)
 )
 
 val baseline = Typography()
