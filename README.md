@@ -73,9 +73,9 @@
 
 - Colors
 
-  Pada project ini, terdapat warna-warna hasil generate dari tool https://material-foundation.github.io/material-theme-builder/ yang akan digunakan sebagai theme dari aplikasi.
+  Pada project ini, terdapat warna-warna hasil generate dari tool https://material-foundation.github.io/material-theme-builder/ yang akan diintegrasikan dengan theme dari aplikasi.
 
-  Berikut ini adalah cuplikan warna-warna untuk light mode yang terletak di file /ui/theme/Color.kt.
+  Berikut ini adalah cuplikan warna-warna untuk light mode yang terletak di file /ui/theme/Color.kt (untuk warna-warna dark mode dapat dilihat lebih lanjut pada file terkait).
   ```
   val primaryLight = Color(0xFF4C662B)
   val onPrimaryLight = Color(0xFFFFFFFF)
@@ -83,7 +83,7 @@
   ...
   ```
 
-  Warna-warna hasil generate tadi akan diintegrasikan ke theme aplikasi. Pertama, deklarasikan terlebih dahulu DarkColorScheme dan LightColorScheme. Berikut cuplikan pendeklarasian LightColorScheme yang terletak di file /ui/theme/Theme.kt (untuk pendeklarasian DarkColorScheme dapat dilihat lebih lanjut pada file terkait).
+   Untuk mengintegrasikan warna-warna hasil generate tadi dengan theme aplikasi, deklarasikan terlebih dahulu DarkColorScheme dan LightColorScheme. Berikut cuplikan pendeklarasian LightColorScheme yang terletak di file /ui/theme/Theme.kt (untuk pendeklarasian DarkColorScheme dapat dilihat lebih lanjut pada file terkait).
   ```
   private val LightColorScheme = lightColorScheme(
     primary = primaryLight,
