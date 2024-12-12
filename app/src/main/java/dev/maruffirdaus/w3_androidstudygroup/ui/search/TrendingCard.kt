@@ -1,4 +1,4 @@
-package dev.maruffirdaus.w3_androidstudygroup.ui.explore
+package dev.maruffirdaus.w3_androidstudygroup.ui.search
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

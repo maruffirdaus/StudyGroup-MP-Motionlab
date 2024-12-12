@@ -1,4 +1,4 @@
-package dev.maruffirdaus.w3_androidstudygroup.ui.explore
+package dev.maruffirdaus.w3_androidstudygroup.ui.search
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize

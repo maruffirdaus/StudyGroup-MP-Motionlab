@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import dev.maruffirdaus.w3_androidstudygroup.R
-import dev.maruffirdaus.w3_androidstudygroup.ui.explore.SearchContent
-import dev.maruffirdaus.w3_androidstudygroup.ui.explore.SearchTopBar
+import dev.maruffirdaus.w3_androidstudygroup.ui.search.SearchContent
+import dev.maruffirdaus.w3_androidstudygroup.ui.search.SearchTopBar
 import dev.maruffirdaus.w3_androidstudygroup.ui.home.HomeAppBar
 import dev.maruffirdaus.w3_androidstudygroup.ui.home.HomeContent
 import dev.maruffirdaus.w3_androidstudygroup.ui.profile.ProfileAppBar
