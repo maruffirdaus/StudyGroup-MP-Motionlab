@@ -8,27 +8,32 @@
 
 - Fonts
 
-  Pada project ini, terdapat dua font yang digunakan, yaitu Sofia dan Onest. Sofia digunakan pada bagian title dari LargeTopAppBar() yang terletak di file /ui/home/HomeAppBar.kt.
+  Pada project ini, terdapat dua font yang digunakan, yaitu Sofia dan Onest.
+
+  Sofia digunakan pada bagian title dari LargeTopAppBar() pada fungsi HomeAppBar().
   
-  Cuplikan kode /ui/theme/Type.kt untuk penggunaan font Sofia:
   ```
+  // Deklarasi font Sofia yang terletak di ~/ui/theme/Type.kt
+  
   val sofiaFamily = FontFamily(
     Font(R.font.sofia_regular, FontWeight.Normal)
   )
   ```
 
-  Cuplikan kode /ui/home/HomeAppBar.kt untuk penggunaan font Sofia:
   ```
+  // Penggunaan font Sofia pada bagian title dari LargeTopAppBar() yang terletak di ~/ui/home/HomeAppBar.kt
+  
   Text(
     "Storyspace",
     fontFamily = sofiaFamily
   )
   ```  
 
-  Selanjutnya, font Onest digunakan sebagai font default aplikasi.
+  Onest digunakan sebagai font default aplikasi.
 
-  Cuplikan kode /ui/theme/Type.kt untuk penggunaan font Onest sebagai font default yang nantinya akan terintegrasi dengan theme dari aplikasi:
   ```
+  // Deklarasi font Onest sekaligus pengaplikasiannya pada Typography yang terletak di ~/ui/theme/Type.kt
+  
   val onestFamily = FontFamily(
       Font(R.font.onest_black, FontWeight.Black),
       Font(R.font.onest_bold, FontWeight.Bold),
@@ -46,8 +51,9 @@
   )
   ```
 
-  Variabel Typography yang sudah dimodifikasi font-nya di atas akan digunakan pada StoryspaceTheme() untuk diterapkan sebagai tipografi default. Berikut cuplikan kodenya yang terletak di file /ui/theme/Theme.kt.
   ```
+  // Pengaplikasian Typography pada fungsi StoryspaceTheme() yang terletak di ~/ui/theme/Theme.kt
+  
   @Composable
   fun StoryspaceTheme(
       ...
@@ -62,8 +68,9 @@
   }
   ```
 
-  StoryspaceTheme() di atas akan digunakan sebagai theme dari aplikasi dengan cara memanggilnya pada ui/MainActivity.kt seperti berikut.
   ```
+  // Penggunaan StoryspaceTheme() sebagai tema dari aplikasi yang terletak di ~/ui/MainActivity.kt
+  
   setContent {
     StoryspaceTheme(...) {
       MainScreen()
@@ -73,18 +80,46 @@
 
 - Colors
 
-  Pada project ini, terdapat warna-warna hasil generate dari tool https://material-foundation.github.io/material-theme-builder/ yang akan diintegrasikan dengan theme dari aplikasi.
+  Pada project ini, terdapat warna-warna hasil generate dari tool https://material-foundation.github.io/material-theme-builder/.
 
-  Berikut ini adalah cuplikan warna-warna untuk light mode yang terletak di file /ui/theme/Color.kt (untuk warna-warna dark mode dapat dilihat lebih lanjut pada file terkait).
+  Pengaplikasian warna pada project ini dilakukan dengan cara menyisipkannya langsung ke tema sehingga warna-warna pada komponen UI akan langsung disesuaikan tanpa perlu mengubahnya satu per satu.
+
+  Untuk dokumentasi mengenai warna pada Material Design 3 dapat dilihat di https://m3.material.io/styles/color/.
+
   ```
+  // Deklarasi warna versi dark yang terletak di ~/ui/theme/Color.kt
+  
+  val primaryDark = Color(0xFFB1D18A)
+  val onPrimaryDark = Color(0xFF1F3701)
+  val primaryContainerDark = Color(0xFF354E16)
+  ...
+  ```
+
+  ```
+  // Deklarasi warna versi light yang terletak di ~/ui/theme/Color.kt 
+  
   val primaryLight = Color(0xFF4C662B)
   val onPrimaryLight = Color(0xFFFFFFFF)
   val primaryContainerLight = Color(0xFFCDEDA3)
   ...
   ```
 
-   Untuk mengintegrasikan warna-warna hasil generate tadi dengan theme aplikasi, deklarasikan terlebih dahulu DarkColorScheme dan LightColorScheme. Berikut cuplikan pendeklarasian LightColorScheme yang terletak di file /ui/theme/Theme.kt (untuk pendeklarasian DarkColorScheme dapat dilihat lebih lanjut pada file terkait).
   ```
+  // Deklarasi DarkColorSheme menggunakan fungsi darkColorScheme() yang terletak di ~/ui/theme/Theme.kt
+  // Warna versi dark digunakan sebagai parameter dari fungsi darkColorScheme().
+  
+  private val DarkColorScheme = darkColorScheme(
+    primary = primaryDark,
+    onPrimary = onPrimaryDark,
+    primaryContainer = primaryContainerDark,
+    ...
+  )
+  ```
+
+  ```
+  // Deklarasi LightColorSheme menggunakan fungsi lightColorScheme() yang terletak di ~/ui/theme/Theme.kt
+  // Warna versi light digunakan sebagai parameter dari fungsi lightColorScheme().
+  
   private val LightColorScheme = lightColorScheme(
     primary = primaryLight,
     onPrimary = onPrimaryLight,
@@ -93,8 +128,9 @@
   )
   ```
 
-  Setelah itu, DarkColorScheme dan LightColorScheme akan digunakan pada StoryspaceTheme() seperti berikut (kode terletak di /ui/theme/Theme.kt).
   ```
+  // Pengaplikasian DarkColorScheme dan LightColorScheme pada fungsi StoryspaceTheme() yang terletak di ~/ui/theme/Theme.kt
+  
   @Composable
   fun StoryspaceTheme(
       darkTheme: Boolean = isSystemInDarkTheme(),
@@ -114,8 +150,10 @@
   }
   ```
 
-  StoryspaceTheme() dapat digunakan dengan cara yang sama seperti pada penjelasan bagian Fonts sebelumnya. Berikut ini adalah cuplikan kodenya yang terletak di file /ui/MainActivity.kt (sedikit catatan, penggunaan `dynamicColor = false` pada cuplikan di bawah dimaksudkan agar fitur dynamic theme tidak aktif sehingga warna pada theme akan mengikuti warna yang telah dideklarasikan sebelumnya).
   ```
+  // Penggunaan StoryspaceTheme() sebagai tema dari aplikasi yang terletak di ~/ui/MainActivity.kt
+  // Parameter `dynamicColor = false` berfungsi untuk menonaktifkan fitur dynamic theme
+  
   setContent {
     StoryspaceTheme(dynamicColor = false) {
       MainScreen()
@@ -123,22 +161,28 @@
   }
   ```
 
-  Selain itu, masing-masing komponen warna di atas juga dapat digunakan dengan cara seperti berikut (kode terletak di file /ui/search/SearchContent.kt).
-  ```
-  Text(
-    "Trending",
-    ...
-    color = MaterialTheme.colorScheme.onSurfaceVariant,
-    ...
-  )
-  ```
+  Tambahan:
 
-  Pengintegrasian warna dengan theme dimaksudkan agar penggunaan warna menjadi lebih praktis (akan langsung diterapkan pada setiap komponen UI berdasarkan peran dari masing-masing komponen warna tanpa harus menyesuaikannya lagi). Untuk dokumentasi peran dari tiap-tiap komponen warna dapat dilihat di https://m3.material.io/styles/color/roles/.
+  - Warna-warna yang disisipkan ke tema juga dapat digunakan secara manual.
+
+    ```
+    // Penggunaan komponen warna tema secara manual yang terletak di ~/ui/search/SearchContent.kt
+    
+    Text(
+      "Trending",
+      ...
+      color = MaterialTheme.colorScheme.onSurfaceVariant,
+      ...
+    )
+    ```
 
 ## Bottom Navigation Bar
 
-Pada project ini, terdapat page Home, Search, dan Profile. Untuk navigasinya sendiri dilakukan menggunakan komponen NavigationBar(). Berikut adalah cuplikan kode penggunaan NavigationBar() yang terletak di file /ui/MainScreen.kt.
+Pada project ini, terdapat page Home, Search, dan Profile. Untuk navigasinya sendiri dilakukan menggunakan komponen NavigationBar().
+
 ```
+// Penggunaan NavigationBar() yang terletak di ~/ui/MainScreen.kt
+
 @Composable
 fun MainScreen() {
     var selectedItem by remember { mutableIntStateOf(0) }
@@ -163,15 +207,15 @@ fun MainScreen() {
     ) { innerPadding ->
         when (selectedItem) {
             0 -> {
-                HomeContent(modifier = Modifier.padding(innerPadding))
+                HomeContent(...)
             }
 
             1 -> {
-                SearchContent(modifier = Modifier.padding(innerPadding))
+                SearchContent(...)
             }
 
             2 -> {
-                ProfileContent(modifier = Modifier.padding(innerPadding))
+                ProfileContent(...)
             }
         }
     }
