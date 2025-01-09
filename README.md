@@ -35,7 +35,7 @@ Pada Jetpack Compose terdapat library navigation-compose yang dapat digunakan un
 
             @Composable
             fun HomeScreen(
-                onProfilePictureClick: (), -> Unit // Sebuah parameter function type yang dapat dipanggil ketika memerlukan aksi menuju ke ProfileScreen
+                onProfilePictureClick: () -> Unit, // Sebuah parameter function type yang dapat dipanggil ketika memerlukan aksi menuju ke ProfileScreen
                 onBack(): () -> Unit // Sebuah parameter function type yang dapat dipanggil ketika memerlukan aksi kembali ke destinasi/layar sebelumnya
             ) {
                 ...
