@@ -26,7 +26,7 @@ Google Books API merupakan API untuk mengakses data atau fitur-fitur yang ada pa
       ): Call<VolumesResponse>
   
       companion object {
-          private const val API_KEY = "AIzaSyDCYGHYYv3SIs6oWMcDr8cvEotQttEYDGI"
+          private const val API_KEY = "..."
       }
   }
   ```
