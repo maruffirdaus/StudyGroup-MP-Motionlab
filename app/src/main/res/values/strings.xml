@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyBooks</string>
+    <string name="search_books">Search books</string>
+    <string name="empty_book_data_message">There is no book data yet.</string>
+    <string name="keyword">Keyword</string>
+    <string name="cancel">Cancel</string>
+    <string name="keyword_empty_message">Keyword cannot be empty</string>
+    <string name="search">Search</string>
+    <string name="welcome_message">Welcome to MyBooks</string>
+    <string name="keyword_unmatch_message">No books were found with the keyword you entered</string>
+</resources>
