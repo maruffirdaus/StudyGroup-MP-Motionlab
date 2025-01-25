@@ -78,12 +78,14 @@ fun HomeScreen() {
                         }
                     }
                 } else {
+                    volumes = emptyList()
                     message = response.message()
                 }
             }
 
             override fun onFailure(call: Call<VolumesResponse>, response: Throwable) {
                 isLoading = false
+                volumes = emptyList()
                 message = response.message.toString()
             }
         })
