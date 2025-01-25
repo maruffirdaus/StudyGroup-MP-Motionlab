@@ -139,7 +139,7 @@ fun HomeScreenContent(
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-               CircularProgressIndicator()
+                CircularProgressIndicator()
             }
         }
 
@@ -189,17 +189,15 @@ fun HomeScreenContent(
                 items(
                     items = volumes,
                     key = { volume ->
-                        volume.id ?: ""
+                        volume.id
                     }
                 ) { volume ->
-                    volume.volumeInfo?.let { volumeInfo ->
-                        VolumeCard(
-                            volumeInfo = volumeInfo,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 8.dp)
-                        )
-                    }
+                    VolumeCard(
+                        volume = volume,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
                 }
                 item {
                     Spacer(
@@ -228,7 +226,8 @@ private fun HomeScreenPreview() {
                     Volume(
                         volumeInfo = VolumeInfo(
                             title = "Example"
-                        )
+                        ),
+                        id = ""
                     )
                 ),
                 onSearchButtonClick = {},

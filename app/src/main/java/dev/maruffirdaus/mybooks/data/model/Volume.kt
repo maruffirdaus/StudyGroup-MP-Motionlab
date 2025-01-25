@@ -14,10 +14,10 @@ data class ImageLinks(
 data class Volume(
 
     @field:SerializedName("volumeInfo")
-    val volumeInfo: VolumeInfo? = null,
+    val volumeInfo: VolumeInfo,
 
     @field:SerializedName("id")
-    val id: String? = null
+    val id: String
 )
 
 data class VolumeInfo(

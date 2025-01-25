@@ -25,16 +25,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import dev.maruffirdaus.mybooks.data.model.Volume
 import dev.maruffirdaus.mybooks.data.model.VolumeInfo
 import dev.maruffirdaus.mybooks.ui.theme.MyBooksTheme
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun VolumeCard(
-    volumeInfo: VolumeInfo,
+    volume: Volume,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+
+    val volumeInfo = volume.volumeInfo
 
     fun openLink(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -115,7 +118,12 @@ fun VolumeCard(
 private fun VolumeCardPreview() {
     MyBooksTheme {
         VolumeCard(
-            volumeInfo = VolumeInfo(),
+            volume = Volume(
+                volumeInfo = VolumeInfo(
+                    title = "Example"
+                ),
+                id = ""
+            ),
             modifier = Modifier.fillMaxWidth()
         )
     }
