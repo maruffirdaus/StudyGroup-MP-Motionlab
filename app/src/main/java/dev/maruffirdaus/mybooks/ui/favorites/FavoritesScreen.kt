@@ -1,4 +1,4 @@
-package dev.maruffirdaus.mybooks.ui.home
+package dev.maruffirdaus.mybooks.ui.favorites
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,14 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,109 +33,49 @@ import dev.maruffirdaus.mybooks.R
 import dev.maruffirdaus.mybooks.data.local.MyBooksDatabase
 import dev.maruffirdaus.mybooks.data.model.Volume
 import dev.maruffirdaus.mybooks.data.model.VolumeInfo
-import dev.maruffirdaus.mybooks.data.remote.response.VolumesResponse
-import dev.maruffirdaus.mybooks.data.remote.retrofit.ApiConfig
 import dev.maruffirdaus.mybooks.ui.shared.FavoriteButtonType
 import dev.maruffirdaus.mybooks.ui.shared.VolumeCard
 import dev.maruffirdaus.mybooks.ui.theme.MyBooksTheme
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Composable
-fun HomeScreen(
-    modifier: Modifier = Modifier,
-    provideShowSearchDialog: (() -> Unit) -> Unit = {}
+fun FavoritesScreen(
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    var isLoading by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(true) }
     var volumes by remember { mutableStateOf(emptyList<Volume>()) }
-    var message: String? by remember { mutableStateOf(null) }
 
-    var isSearchDialogVisible by remember { mutableStateOf(false) }
-
-    fun getVolumes(query: String) {
-        isLoading = true
-
-        val client = ApiConfig.getApiService().getVolumes(query)
-
-        client.enqueue(object : Callback<VolumesResponse> {
-            override fun onResponse(
-                call: Call<VolumesResponse>,
-                response: Response<VolumesResponse>
-            ) {
-                isLoading = false
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-
-                    if (responseBody != null) {
-                        volumes = responseBody.items
-                        if (responseBody.totalItems == 0) {
-                            message = context.getString(R.string.keyword_unmatch_message)
-                        }
-                    }
-                } else {
-                    volumes = emptyList()
-                    message = response.message()
-                }
-            }
-
-            override fun onFailure(call: Call<VolumesResponse>, response: Throwable) {
-                isLoading = false
-                volumes = emptyList()
-                message = response.message.toString()
-            }
-        })
-    }
-
-    fun addToFavorites(volume: Volume) {
+    fun removeFromFavorites(volume: Volume) {
         scope.launch {
-            MyBooksDatabase.getDatabase(context).volumeDao().upsert(volume)
+            MyBooksDatabase.getDatabase(context).volumeDao().delete(volume)
+            volumes = MyBooksDatabase.getDatabase(context).volumeDao().getVolumes()
         }
     }
 
     LaunchedEffect(Unit) {
-        provideShowSearchDialog {
-            isSearchDialogVisible = true
-        }
+        volumes = MyBooksDatabase.getDatabase(context).volumeDao().getVolumes()
+        isLoading = false
     }
 
-    HomeScreenContent(
+    FavoritesScreenContent(
         volumes = volumes,
-        onSearchButtonClick = {
-            isSearchDialogVisible = true
-        },
-        onAddToFavoritesButtonClick = { volume ->
-            addToFavorites(volume)
+        onRemoveButtonClick = { volume ->
+            removeFromFavorites(volume)
         },
         modifier = modifier,
         loading = isLoading,
-        message = message
     )
-
-    if (isSearchDialogVisible) {
-        SearchDialog(
-            onSearch = { query ->
-                getVolumes(query)
-            },
-            onDismissRequest = {
-                isSearchDialogVisible = false
-            }
-        )
-    }
 }
 
 @Composable
-fun HomeScreenContent(
+fun FavoritesScreenContent(
     volumes: List<Volume>,
-    onSearchButtonClick: () -> Unit,
-    onAddToFavoritesButtonClick: (Volume) -> Unit,
+    onRemoveButtonClick: (Volume) -> Unit,
     modifier: Modifier = Modifier,
     loading: Boolean = false,
-    message: String? = null
 ) {
     when {
         loading -> {
@@ -162,28 +98,11 @@ fun HomeScreenContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = message ?: stringResource(R.string.welcome_message),
+                    text = stringResource(R.string.favorite_books_empty_message),
                     color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineSmall
                 )
-                Spacer(
-                    modifier = Modifier.height(32.dp)
-                )
-                OutlinedButton(
-                    onClick = onSearchButtonClick
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_search),
-                        contentDescription = stringResource(R.string.search_books)
-                    )
-                    Spacer(
-                        modifier = Modifier.width(8.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.search_books)
-                    )
-                }
             }
         }
 
@@ -204,9 +123,9 @@ fun HomeScreenContent(
                 ) { volume ->
                     VolumeCard(
                         volume = volume,
-                        favoriteButtonType = FavoriteButtonType.ADD,
+                        favoriteButtonType = FavoriteButtonType.REMOVE,
                         onFavoriteButtonClick = { volumeFromCard ->
-                            onAddToFavoritesButtonClick(volumeFromCard)
+                            onRemoveButtonClick(volumeFromCard)
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -226,16 +145,14 @@ fun HomeScreenContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-private fun HomeScreenPreview() {
+private fun FavoritesScreenPreview() {
     MyBooksTheme {
         Scaffold(
             topBar = {
-                HomeAppBar(
-                    onSearchButtonClick = {}
-                )
+                FavoritesAppBar()
             }
         ) { innerPadding ->
-            HomeScreenContent(
+            FavoritesScreenContent(
                 volumes = listOf(
                     Volume(
                         volumeInfo = VolumeInfo(
@@ -244,8 +161,7 @@ private fun HomeScreenPreview() {
                         id = ""
                     )
                 ),
-                onSearchButtonClick = {},
-                onAddToFavoritesButtonClick = {},
+                onRemoveButtonClick = {},
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -255,43 +171,17 @@ private fun HomeScreenPreview() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-private fun HomeScreenEmptyPreview() {
+private fun FavoritesScreenEmptyPreview() {
     MyBooksTheme {
         Scaffold(
             topBar = {
-                HomeAppBar(
-                    onSearchButtonClick = {}
-                )
+                FavoritesAppBar()
             }
         ) { innerPadding ->
-            HomeScreenContent(
+            FavoritesScreenContent(
                 volumes = emptyList(),
-                onSearchButtonClick = {},
-                onAddToFavoritesButtonClick = {},
+                onRemoveButtonClick = {},
                 modifier = Modifier.padding(innerPadding)
-            )
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-private fun HomeScreenEmptyWithMessagePreview() {
-    MyBooksTheme {
-        Scaffold(
-            topBar = {
-                HomeAppBar(
-                    onSearchButtonClick = {}
-                )
-            }
-        ) { innerPadding ->
-            HomeScreenContent(
-                volumes = emptyList(),
-                onSearchButtonClick = {},
-                onAddToFavoritesButtonClick = {},
-                modifier = Modifier.padding(innerPadding),
-                message = stringResource(R.string.keyword_unmatch_message)
             )
         }
     }

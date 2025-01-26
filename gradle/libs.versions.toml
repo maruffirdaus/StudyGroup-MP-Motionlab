@@ -12,6 +12,8 @@ compose = "1.0.0-beta01"
 retrofit = "2.11.0"
 converterGson = "2.11.0"
 loggingInterceptor = "5.0.0-alpha.14"
+roomRuntime = "2.7.0-alpha12"
+roomCompiler = "2.7.0-alpha12"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,9 +34,12 @@ compose = { group = "com.github.bumptech.glide", name = "compose", version.ref =
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.28"}
 

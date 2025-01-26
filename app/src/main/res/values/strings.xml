@@ -8,4 +8,10 @@
     <string name="search">Search</string>
     <string name="welcome_message">Welcome to MyBooks</string>
     <string name="keyword_unmatch_message">No books were found with the keyword you entered</string>
+    <string name="favorites">Favorites</string>
+    <string name="favorite_books_empty_message">No favorite books added yet</string>
+    <string name="refresh">Refresh</string>
+    <string name="home">Home</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove">Remove</string>
 </resources>

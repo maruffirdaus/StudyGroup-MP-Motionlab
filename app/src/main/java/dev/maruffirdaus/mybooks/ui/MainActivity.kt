@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import dev.maruffirdaus.mybooks.ui.home.HomeScreen
+import dev.maruffirdaus.mybooks.ui.main.MainScreen
 import dev.maruffirdaus.mybooks.ui.theme.MyBooksTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyBooksTheme {
-                HomeScreen()
+                MainScreen()
             }
         }
     }
